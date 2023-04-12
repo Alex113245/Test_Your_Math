@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="utf-8" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Operations</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="operation-client.js"></script>
+</head>
+
+<body>
+<div>
+    <h1>Welcome to Social Operations</h1>
+    <h2>This is your challenge for today:</h2>
+    <h1>
+
+        <span class="operation-a"></span> <span class="operator"></span> <span class="operation-b"></span>
+    </h1>
+
+
+    <form id="attempt-form">
+        Result? <label>
+        <input type="text" name="attempt">
+    </label><br>
+        Your alias: <label>
+        <input type="text" name="alias">
+    </label><br>
+        <input type="submit" value="Check">
+    </form>
+
+
+
+    <h2><span class="result-message"></span></h2>
+    <h2>Stats for the current user</h2>
+    <table id="stats" style="width:100%">
+        <tr>
+            <th>Attempt ID</th>
+            <th>Operations</th>
+            <th>You entered</th>
+            <th>Correct?</th>
+        </tr>
+        <tbody id="stats-body"></tbody>
+    </table>
+
+    <h2>Leaderboard</h2>
+    <table id="leaderboard" style="width:100%;margin:40">
+
+        <tr>
+            <th>ID</th>
+            <th>Alias</th>
+            <th>Points</th>
+            <th>Badge</th>
+        </tr>
+        <tbody id="leaderboard-body" style="width:100%;margin:40"></tbody>
+    </table>
+
+</div>
+</body>
+</html>
