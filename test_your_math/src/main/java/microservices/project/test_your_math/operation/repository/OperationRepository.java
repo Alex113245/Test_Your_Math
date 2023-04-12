@@ -1,10 +1,10 @@
 package microservices.project.test_your_math.operation.repository;
 
-import microservices.book.multiplication.domain.Multiplication;
+import microservices.project.test_your_math.operation.domain.Operation;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * This interface allows us to save and retrieve Multiplications
+ * This interface allows us to save and retrieve the Operations.
  */
-public interface MultiplicationRepository extends CrudRepository<Multiplication, Long> {
+public interface OperationRepository extends CrudRepository<Operation, Long> {
 }

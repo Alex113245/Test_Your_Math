@@ -1,9 +1,9 @@
 package microservices.project.test_your_math.operation.controller;
 
 import microservices.project.test_your_math.operation.domain.Badges;
-import microservices.project.test_your_math.operation.domain.MultiplicationResultAttempt;
+import microservices.project.test_your_math.operation.domain.OperationResultAttempt;
 import microservices.project.test_your_math.operation.domain.User;
-import microservices.project.test_your_math.operation.service.MultiplicationService;
+import microservices.project.test_your_math.operation.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,38 +15,38 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/results")
-final class MultiplicationResultAttemptController {
+final class OperationResultAttemptController {
 
-    private final MultiplicationService multiplicationService;
+    private final OperationService operationService;
+
 
     @Autowired
-    MultiplicationResultAttemptController(final MultiplicationService multiplicationService) {
-        this.multiplicationService = multiplicationService;
+    OperationResultAttemptController(final OperationService operationService){
+        this.operationService=operationService;
     }
-
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<MultiplicationResultAttempt> postResult(@RequestBody MultiplicationResultAttempt multiplicationResultAttempt) {
-        boolean isCorrect = multiplicationService.checkAttempt(multiplicationResultAttempt);
-        MultiplicationResultAttempt attemptCopy = new MultiplicationResultAttempt(
-                multiplicationResultAttempt.getUser(),
-                multiplicationResultAttempt.getMultiplication(),
-                multiplicationResultAttempt.getResultAttempt(),
+    ResponseEntity<OperationResultAttempt> postResult(@RequestBody OperationResultAttempt operationResultAttempt) {
+        boolean isCorrect = operationService.checkAttempt(operationResultAttempt);
+        OperationResultAttempt attemptCopy = new OperationResultAttempt(
+                operationResultAttempt.getUser(),
+                operationResultAttempt.getOperation(),
+                operationResultAttempt.getResultAttempt(),
                 isCorrect
         );
         return ResponseEntity.ok(attemptCopy);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<MultiplicationResultAttempt>> getStatistics(@RequestParam("alias") String alias) {
+    ResponseEntity<List<OperationResultAttempt>> getStatistics(@RequestParam("alias") String alias) {
         return ResponseEntity.ok(
-                multiplicationService.getStatsForUser(alias)
+                operationService.getStatsForUser(alias)
         );
     }
 
     @RequestMapping(value = "/leaderboard", method = RequestMethod.GET)
     ResponseEntity<List<User>> getLeaderboard() {
         return ResponseEntity.ok(
-                multiplicationService.getLeaderboardForUsers()
+                operationService.getLeaderboardForUsers()
         );
     }
 

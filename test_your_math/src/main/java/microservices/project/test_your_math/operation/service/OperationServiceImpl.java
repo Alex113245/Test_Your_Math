@@ -1,11 +1,11 @@
 package microservices.project.test_your_math.operation.service;
 
-import microservices.book.multiplication.domain.Badges;
-import microservices.book.multiplication.domain.Multiplication;
-import microservices.book.multiplication.domain.MultiplicationResultAttempt;
-import microservices.book.multiplication.domain.User;
-import microservices.book.multiplication.repository.MultiplicationResultAttemptRepository;
-import microservices.book.multiplication.repository.UserRepository;
+import microservices.project.test_your_math.operation.domain.Badges;
+import microservices.project.test_your_math.operation.domain.Operation;
+import microservices.project.test_your_math.operation.domain.OperationResultAttempt;
+import microservices.project.test_your_math.operation.domain.User;
+import microservices.project.test_your_math.operation.repository.OperationResultAttemptRepository;
+import microservices.project.test_your_math.operation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -14,18 +14,18 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static microservices.book.multiplication.domain.Multiplication.getRandomOperator;
+import static microservices.project.test_your_math.operation.domain.Operation.getRandomOperator;
 
 @Service
-class MultiplicationServiceImpl implements MultiplicationService {
+class OperationServiceImpl implements OperationService {
 
     private RandomGeneratorService randomGeneratorService;
-    private MultiplicationResultAttemptRepository attemptRepository;
+    private OperationResultAttemptRepository attemptRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public MultiplicationServiceImpl(final RandomGeneratorService randomGeneratorService,
-                                     final MultiplicationResultAttemptRepository attemptRepository,
+    public OperationServiceImpl(final RandomGeneratorService randomGeneratorService,
+                                     final OperationResultAttemptRepository attemptRepository,
                                      final UserRepository userRepository) {
         this.randomGeneratorService = randomGeneratorService;
         this.attemptRepository = attemptRepository;
@@ -33,16 +33,16 @@ class MultiplicationServiceImpl implements MultiplicationService {
     }
 
     @Override
-    public Multiplication createRandomMultiplication() {
+    public Operation createRandomOperation() {
         int factorA = randomGeneratorService.generateRandomFactor();
         int factorB = randomGeneratorService.generateRandomFactor();
         char operation = getRandomOperator();
-        return new Multiplication(factorA, factorB, operation);
+        return new Operation(factorA, factorB, operation);
     }
 
     @Transactional
     @Override
-    public boolean checkAttempt(final MultiplicationResultAttempt attempt) {
+    public boolean checkAttempt(final OperationResultAttempt attempt) {
         // Check if the user already exists for that alias
         Optional<User> user = userRepository.findByAlias(attempt.getUser().getAlias());
 
@@ -51,19 +51,19 @@ class MultiplicationServiceImpl implements MultiplicationService {
 
         int result;
 
-        switch (attempt.getMultiplication().getOperator()) {
+        switch (attempt.getOperation().getOperator()) {
             case '+':
-                result = attempt.getMultiplication().getFactorA() + attempt.getMultiplication().getFactorB();
+                result = attempt.getOperation().getFactorA() + attempt.getOperation().getFactorB();
                 break;
             case '-':
-                result = attempt.getMultiplication().getFactorA() - attempt.getMultiplication().getFactorB();
+                result = attempt.getOperation().getFactorA() - attempt.getOperation().getFactorB();
                 break;
             case '*':
-                result = attempt.getMultiplication().getFactorA() * attempt.getMultiplication().getFactorB();
+                result = attempt.getOperation().getFactorA() * attempt.getOperation().getFactorB();
                 break;
             case '/':
-                if (attempt.getMultiplication().getFactorB() != 0) {
-                    result = (int) (attempt.getMultiplication().getFactorA() / attempt.getMultiplication().getFactorB());
+                if (attempt.getOperation().getFactorB() != 0) {
+                    result = (int) (attempt.getOperation().getFactorA() / attempt.getOperation().getFactorB());
                 } else {
                     result = 0;
                 }
@@ -75,15 +75,15 @@ class MultiplicationServiceImpl implements MultiplicationService {
         // Check if the attempt is correct
         boolean isCorrect = result == attempt.getResultAttempt();
 
-        MultiplicationResultAttempt checkedAttempt = new MultiplicationResultAttempt(
+        OperationResultAttempt checkedAttempt = new OperationResultAttempt(
                 user.orElse(attempt.getUser()),
-                attempt.getMultiplication(),
+                attempt.getOperation(),
                 attempt.getResultAttempt(),
                 isCorrect
         );
 
         if(isCorrect && user.isPresent()) {
-            switch (attempt.getMultiplication().getOperator()) {
+            switch (attempt.getOperation().getOperator()) {
                 case '+':
                     user.get().setPoints(user.get().getPoints() + 10);
                     break;
@@ -94,7 +94,7 @@ class MultiplicationServiceImpl implements MultiplicationService {
                     user.get().setPoints(user.get().getPoints() + 100);
                     break;
                 case '/':
-                    if (attempt.getMultiplication().getFactorB() != 0) {
+                    if (attempt.getOperation().getFactorB() != 0) {
                         user.get().setPoints(user.get().getPoints() + 150);
                     }
                     break;
@@ -134,7 +134,7 @@ class MultiplicationServiceImpl implements MultiplicationService {
     }
 
     @Override
-    public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
+    public List<OperationResultAttempt> getStatsForUser(String userAlias) {
         return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
     }
 

@@ -12,18 +12,18 @@ import javax.persistence.Id;
 import java.util.Random;
 
 /**
- * This class represents a Multiplication (a * b).
+ * This class represents an Operation (a * b).
  */
 @RequiredArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
 @Entity
-public final class Multiplication {
+public final class Operation {
 
     @Id
     @GeneratedValue
-    @Column(name = "MULTIPLICATION_ID")
+    @Column(name = "OPERATION_ID")
     private Long id;
 
     // Both factors
@@ -34,7 +34,7 @@ public final class Multiplication {
     private final char operator;
 
     // Empty constructor for JSON/JPA
-    Multiplication() {
+    Operation() {
         this(0, 0, '+');
     }
 

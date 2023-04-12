@@ -1,38 +1,36 @@
 package microservices.project.test_your_math.operation.service;
 
-import microservices.book.multiplication.domain.Badges;
-import microservices.book.multiplication.domain.Multiplication;
-import microservices.book.multiplication.domain.MultiplicationResultAttempt;
-import microservices.book.multiplication.domain.User;
+import microservices.project.test_your_math.operation.domain.Operation;
+import microservices.project.test_your_math.operation.domain.OperationResultAttempt;
+import microservices.project.test_your_math.operation.domain.User;
 
 import java.util.List;
 
-public interface MultiplicationService {
+public interface OperationService {
 
-    /
-     * Creates a Multiplication object with two randomly-generated factors
+    /**
+     * Creates an Operation object with two randomly-generated factors
      * between 11 and 99.
      *
-     * @return a Multiplication object with random factors
+     * @return an Operation object with random factors
      */
-    Multiplication createRandomMultiplication();
+    Operation createRandomOperation();
 
-    /
+    /**
      * @return true if the attempt matches the result of the
-     *         multiplication, false otherwise.
+     *         operation, false otherwise.
      */
-    boolean checkAttempt(final MultiplicationResultAttempt resultAttempt);
+    boolean checkAttempt(final OperationResultAttempt resultAttempt);
 
     /**
      * Gets the statistics for a given user.
      *
      * @param userAlias the user's alias
-     * @return a list of {@link MultiplicationResultAttempt} objects, being the past attempts of the user.
+     * @return a list of {@link OperationResultAttempt} objects, being the past attempts of the user.
      */
-    List<MultiplicationResultAttempt> getStatsForUser(final String userAlias);
+    List<OperationResultAttempt> getStatsForUser(final String userAlias);
 
     List<User> getLeaderboardForUsers();
 
-    //List<Badges> getBadgesForUser(final String userAlias);
 
 }

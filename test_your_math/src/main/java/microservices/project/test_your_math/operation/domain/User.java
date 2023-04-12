@@ -1,9 +1,8 @@
 package microservices.project.test_your_math.operation.domain;
 
-import lombok.;
+import lombok.*;
 
-import javax.persistence.;
-import java.util.List;
+import javax.persistence.*;
 
 /**
  * Stores information to identify the user.

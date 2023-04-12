@@ -9,14 +9,14 @@ import javax.persistence.*;
 
 /**
  * Identifies the attempt from a {@link User} to solve a
- * {@link Multiplication}.
+ * {@link Operation}.
  */
 @RequiredArgsConstructor
 @Getter
 @ToString
 @EqualsAndHashCode
 @Entity
-public final class MultiplicationResultAttempt {
+public final class OperationResultAttempt {
 
     @Id
     @GeneratedValue
@@ -27,16 +27,16 @@ public final class MultiplicationResultAttempt {
     private final User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "MULTIPLICATION_ID")
-    private final Multiplication multiplication;
+    @JoinColumn(name = "OPERATION_ID")
+    private final Operation operation;
     private final int resultAttempt;
 
     private final boolean correct;
 
     // Empty constructor for JSON/JPA
-    MultiplicationResultAttempt() {
+    OperationResultAttempt() {
         user = null;
-        multiplication = null;
+        operation = null;
         resultAttempt = -1;
         correct = false;
     }

@@ -1,14 +1,14 @@
-function updateMultiplication() {
+function updateOperation() {
     $.ajax({
-        url: "http://localhost:8080/test-your-math/multiplications/random"
+        url: "http://localhost:8080/test-your-math/operations/random"
     }).then(function(data) {
         // Cleans the form
         $("#attempt-form").find( "input[name='result-attempt']" ).val("");
         $("#attempt-form").find( "input[name='user-alias']" ).val("");
         // Gets a random challenge from API and loads the data in the HTML
-        $('.multiplication-a').empty().append(data.factorA);
+        $('.operation-a').empty().append(data.factorA);
         $('.operator').empty().append(data.operator);
-        $('.multiplication-b').empty().append(data.factorB);
+        $('.operation-b').empty().append(data.factorB);
     });
 }
 
@@ -19,7 +19,7 @@ function updateStats(alias) {
         $('#stats-body').empty();
         data.forEach(function(row) {
             $('#stats-body').append('<tr><td style="text-align: center">' + row.id + '</td>' +
-                '<td style="text-align: center">' + row.multiplication.factorA + ' ' + row.multiplication.operator + ' ' + row.multiplication.factorB + '</td>' +
+                '<td style="text-align: center">' + row.operation.factorA + ' ' + row.operation.operator + ' ' + row.operation.factorB + '</td>' +
                 '<td style="text-align: center">' + row.resultAttempt + '</td>' +
 
                 '<td style="text-align: center">' + (row.correct === true ? 'YES' : 'NO') + '</td></tr>');
@@ -43,7 +43,7 @@ function updateLeaderboard() {
 
 $(document).ready(function() {
 
-    updateMultiplication();
+    updateOperation();
 
     updateLeaderboard();
 
@@ -53,15 +53,15 @@ $(document).ready(function() {
         event.preventDefault();
 
         // Get some values from elements on the page
-        var a = $('.multiplication-a').text();
-        var b = $('.multiplication-b').text();
+        var a = $('.operation-a').text();
+        var b = $('.operation-b').text();
          var c = $('.operator').text();
         var $form = $( this ),
             attempt = $form.find( "input[name='result-attempt']" ).val(),
             userAlias = $form.find( "input[name='user-alias']" ).val();
 
         // Compose the data in the format that the API is expecting
-        var data = { user: { alias: userAlias}, multiplication: {factorA: a, factorB: b, operator: c}, resultAttempt: attempt};
+        var data = { user: { alias: userAlias}, operation: {factorA: a, factorB: b, operator: c}, resultAttempt: attempt};
 
         // Send the data using post
         $.ajax({
@@ -80,7 +80,7 @@ $(document).ready(function() {
             }
         });
 
-        updateMultiplication();
+        updateOperation();
 
         updateStats(userAlias);
 
