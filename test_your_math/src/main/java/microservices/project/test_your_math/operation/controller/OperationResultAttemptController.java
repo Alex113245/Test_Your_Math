@@ -1,6 +1,6 @@
 package microservices.project.test_your_math.operation.controller;
 
-import microservices.project.test_your_math.operation.domain.Badges;
+
 import microservices.project.test_your_math.operation.domain.OperationResultAttempt;
 import microservices.project.test_your_math.operation.domain.User;
 import microservices.project.test_your_math.operation.service.OperationService;

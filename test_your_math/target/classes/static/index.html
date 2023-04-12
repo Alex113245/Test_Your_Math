@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="utf-8" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Operation v1</title>
+    <title>Multiplication v1</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js%22%3E"></script>
-    <script src="Operation-client.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="operation-client.js"></script>
 </head>
 
 <body>
@@ -12,21 +12,29 @@
     <h1>Welcome to Social Operations</h1>
     <h2>This is your challenge for today:</h2>
     <h1>
-        <span class="operation-a"></span> <span class="operator"></span> <span class="operation-b"></span> =
+
+        <span class="operation-a"></span> <span class="operator"></span> <span class="operation-b"></span>
     </h1>
-    <p>
+
+
     <form id="attempt-form">
-        Result? <input type="text" name="result-attempt"><br>
-        Your alias: <input type="text" name="user-alias"><br>
+        Result? <label>
+        <input type="text" name="attempt">
+    </label><br>
+        Your alias: <label>
+        <input type="text" name="alias">
+    </label><br>
         <input type="submit" value="Check">
     </form>
-    </p>
+
+
+
     <h2><span class="result-message"></span></h2>
     <h2>Stats for the current user</h2>
     <table id="stats" style="width:100%">
         <tr>
             <th>Attempt ID</th>
-            <th>Operation</th>
+            <th>Multiplication</th>
             <th>You entered</th>
             <th>Correct?</th>
         </tr>

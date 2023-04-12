@@ -21,7 +21,7 @@ final class OperationController {
         this.operationService = operationService;
     }
 
-    @GetMapping("/random")
+    @GetMapping(value = "/random")
     Operation getRandomOperation() {
         return operationService.createRandomOperation();
     }
